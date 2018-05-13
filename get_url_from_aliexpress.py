@@ -5,7 +5,7 @@ import requests
 import random
 
 
-def geturl(filename,url):
+def geturl(filename,url,l_or_e):
     user_agent = [
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11',
         'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-us) AppleWebKit/534.50 (KHTML, like Gecko) Version/5.1 Safari/534.50',
@@ -24,12 +24,23 @@ def geturl(filename,url):
         except:
             pass
         url_list.append(url)
-    wb = xlwt.Workbook(encoding='utf-8')
-    sh = wb.add_sheet('urllist')
-    for i in progressbar.progressbar(range(len(url_list))):
-        sh.write(i,0,url_list[i])
-    wb.save(filename+'.xls')
-    print('down')
+    if l_or_e == 'e':
+        wb = xlwt.Workbook(encoding='utf-8')
+        sh = wb.add_sheet('urllist')
+        for i in progressbar.progressbar(range(len(url_list))):
+            sh.write(i,0,url_list[i])
+            wb.save(filename+'.xls')
+        print('down')
+    if l_or_e == 'l':
+        return url_list
+    if l_or_e == 'both':
+        wb = xlwt.Workbook(encoding='utf-8')
+        sh = wb.add_sheet('urllist')
+        for i in progressbar.progressbar(range(len(url_list))):
+            sh.write(i, 0, url_list[i])
+        wb.save(filename + '.xls')
+        print('down')
+        return url_list
 
-geturl('makeup_mask','https://www.aliexpress.com/wholesale?catId=200002604&initiative_id=AS_20180513021256&SearchText=mask')
+geturl('makeup_mask','https://www.aliexpress.com/wholesale?catId=200002604&initiative_id=AS_20180513021256&SearchText=mask','e')
 
